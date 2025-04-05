@@ -1,0 +1,12 @@
+import pandas as pd
+
+# Charger le jeu de données prétraité
+df = pd.read_csv('data/processed_dataset.csv')
+
+# Sélectionner un sous-ensemble pour le jeu de test (par exemple, 20% des données)
+df_test = df.sample(frac=0.2, random_state=42)  # 20% des données comme jeu de test
+
+# Sauvegarder le fichier de test dans 'data/test_dataset.csv'
+df_test.to_csv('data/test_dataset.csv', index=False)
+
+print("Fichier de test créé et sauvegardé dans 'data/test_dataset.csv'.")
