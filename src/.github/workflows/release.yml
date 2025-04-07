@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Create release notes
+      run: |
+        VERSION=${GITHUB_REF#refs/tags/}
+        echo "Creating release for version $VERSION"
+        echo "## Release Notes" > release_notes.md
+        echo "### Features" >> release_notes.md
+        echo "- First release" >> release_notes.md
+
+    - name: Create GitHub release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: release_notes.md

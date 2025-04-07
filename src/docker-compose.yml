@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"  # Expose le port 5000
+    volumes:
+      - ./data:/app/data  # Persist les données (modèles, etc.)
+    environment:
+      - FLASK_ENV=development

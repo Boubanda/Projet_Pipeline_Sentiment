@@ -14,10 +14,10 @@ def predict():
     data = request.json  # Récupérer les données envoyées en JSON
     text = data.get('text', '')  # Extraire le texte du JSON
     
-    # Transformer le texte
+    # Transformer le texte en vecteurs
     text_vect = vectorizer.transform([text])
     
-    # Prédiction
+    # Prédiction du modèle
     prediction = model.predict(text_vect)
     
     # Convertir la prédiction en un type JSON sérialisable (par exemple, int)
@@ -27,4 +27,16 @@ def predict():
 
 # Lancer l'application
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Exécuter l'application Flask en écoutant sur 0.0.0.0 pour qu'elle soit accessible depuis l'extérieur du conteneur Docker
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    # logique de prédiction ici
+    return {"prediction": 1}
+
+if __name__ == "__main__":
+    app.run()
